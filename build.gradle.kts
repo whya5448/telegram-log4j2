@@ -4,27 +4,38 @@ plugins {
     java
     `java-library`
     `maven-publish`
-    kotlin("jvm") version "1.6.20"
+    kotlin("jvm") version "1.6.21"
+    kotlin("plugin.spring") version "1.6.21"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    id("org.springframework.boot") version "2.6.7"
 }
 
-group = "org.metalscraps.log.appender"
-version = "1.0"
+group = "org.metalscraps.log"
+version = "0.0.1"
 
 repositories {
     mavenCentral()
 }
 
+val log4j2Version = "2.17.2"
+
 dependencies {
-    // 6.0.1
-    implementation("org.telegram:telegrambots:6.0.+")
+    implementation("org.telegram:telegrambots:6.0.1") {
+        exclude("org.json:json") // Cxdb5a1032-eda2
+    }
+    implementation("org.json:json:20200518")
 
-    // 2.17.2
-    implementation("org.apache.logging.log4j:log4j-core:2.17.+")
+    implementation("org.apache.logging.log4j:log4j-core:$log4j2Version")
 
+    implementation("org.junit.jupiter:junit-jupiter:5.8.2")
     testImplementation(kotlin("test"))
+    testImplementation(kotlin("reflect"))
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-log4j2")
+    testImplementation("org.apache.logging.log4j:log4j-spring-boot:$log4j2Version")
 }
 
-tasks.test {
+tasks.withType<Test> {
     useJUnitPlatform()
 }
 
@@ -33,6 +44,7 @@ tasks.withType<KotlinCompile> {
 }
 
 java {
+    withJavadocJar()
     withSourcesJar()
 }
 
@@ -41,5 +53,11 @@ publishing {
         create<MavenPublication>("library") {
             from(components["java"])
         }
+    }
+}
+
+configurations {
+    all {
+        exclude("org.springframework.boot", "spring-boot-starter-logging")
     }
 }
