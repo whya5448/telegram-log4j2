@@ -35,6 +35,11 @@ dependencies {
     testImplementation("org.apache.logging.log4j:log4j-spring-boot:$log4j2Version")
 }
 
+val jar by tasks.jar
+jar.enabled = false
+val bootJar by tasks.bootJar
+bootJar.enabled = false
+
 tasks.withType<Test> {
     useJUnitPlatform()
 }
