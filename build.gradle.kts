@@ -36,7 +36,7 @@ dependencies {
 }
 
 val jar by tasks.jar
-jar.enabled = false
+jar.enabled = true
 val bootJar by tasks.bootJar
 bootJar.enabled = false
 
