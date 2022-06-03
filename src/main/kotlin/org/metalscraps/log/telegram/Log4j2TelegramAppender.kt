@@ -1,9 +1,7 @@
 package org.metalscraps.log.telegram
 
 import org.apache.logging.log4j.Level
-import org.apache.logging.log4j.core.Filter
-import org.apache.logging.log4j.core.Layout
-import org.apache.logging.log4j.core.LogEvent
+import org.apache.logging.log4j.core.*
 import org.apache.logging.log4j.core.appender.AbstractAppender
 import org.apache.logging.log4j.core.config.plugins.Plugin
 import org.apache.logging.log4j.core.config.plugins.PluginAttribute
@@ -13,7 +11,7 @@ import org.apache.logging.log4j.core.layout.PatternLayout
 import java.io.Serializable
 import java.util.concurrent.TimeUnit
 
-@Plugin(name = "Telegram", category = "Core", elementType = "appender", printObject = true)
+@Plugin(name = "Telegram", category = Core.CATEGORY_NAME, elementType = Appender.ELEMENT_TYPE, printObject = true)
 open class Log4j2TelegramAppender(
     name: String,
     filter: Filter?,
