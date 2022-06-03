@@ -19,7 +19,7 @@ open class Log4j2TelegramAppender(
     ignoreExceptions: Boolean,
     token: String,
     internal val chatId: Long,
-    internal val level: Level = Level.ERROR,
+    internal val level: Level,
     internal val useCodeStyle: Boolean = true,
 ) : AbstractAppender(
     name, filter, layout, ignoreExceptions, arrayOf()
