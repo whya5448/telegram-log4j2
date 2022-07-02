@@ -1,3 +1,4 @@
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -20,7 +21,7 @@ repositories {
 val log4j2Version = "2.17.2"
 
 dependencies {
-    implementation("org.telegram:telegrambots:6.0.1") {
+    implementation("org.telegram:telegrambots:6.1.0") {
         exclude("org.json:json") // Cxdb5a1032-eda2
     }
     implementation("org.json:json:20200518")
