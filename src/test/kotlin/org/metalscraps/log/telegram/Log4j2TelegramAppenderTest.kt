@@ -80,4 +80,47 @@ internal class Log4j2TelegramAppenderTest {
             }
         }
     }
+
+
+    @Test
+    fun appendLongText() {
+        assertNotNull(appender)
+        val thread = Thread.currentThread()
+        appender!!.let {
+            fun getEvent(level: Level, message: String): Log4jLogEvent {
+                return Log4jLogEvent.newBuilder()
+                    .setLevel(level)
+                    .setMessage(SimpleMessage(message))
+                    .setLoggerName(appender!!.name)
+                    .setThreadName(thread.name)
+                    .setThreadId(thread.id)
+                    .build()
+            }
+
+            val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9') + listOf('\n')
+
+            val randomString = (1..((4096 * 4.5).toInt()))
+                .map { i -> kotlin.random.Random.nextInt(0, charPool.size) }
+                .map(charPool::get)
+                .joinToString("");
+
+            val requestId = UUID.randomUUID().toString().replace("-", "").substring(24)
+            it.append(
+                getEvent(
+                    Level.ERROR,
+                    "[$requestId] Log4j2 Telegram append long text test message $randomString"
+                )
+            )
+        }
+
+        val expireTime = LocalTime.now().plusMinutes(1)
+        TelegramBuilder.instances.values.first().rateLimitQueue.queue.let {
+            while (!it.isEmpty()) {
+                assertTrue(expireTime.isAfter(LocalTime.now()))
+                println("left queue size: ${it.size}")
+                Thread.sleep(5000)
+            }
+        }
+    }
+
 }

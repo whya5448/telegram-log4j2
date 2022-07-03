@@ -35,6 +35,40 @@ open class Log4j2TelegramAppender(
     }
 
     private fun execute(chatId: Long, message: String) {
+        if (message.length > 4000) {
+            val messages = message.split('\n')
+            val size = messages.size
+
+            var i = 0
+            val buffer = StringBuffer()
+            while (i < size) {
+
+                val targetText = messages[i]
+                if (targetText.length > 4000) {
+                    if (buffer.isNotBlank()) {
+                        execute(chatId, buffer.toString())
+                    }
+                    buffer.delete(0, buffer.length)
+
+                    targetText.chunked(4000).forEach {
+                        execute(chatId, it)
+                    }
+                    i++
+                    continue
+                }
+
+                if (buffer.length + targetText.length < 3999) {
+                    buffer.append('\n').append(targetText)
+                    i++
+                    continue
+                }
+
+                execute(chatId, buffer.toString())
+                buffer.delete(0, buffer.length)
+            }
+            return
+        }
+
         if (useCodeStyle) {
             telegram.append(chatId, "```$message```")
         } else {
