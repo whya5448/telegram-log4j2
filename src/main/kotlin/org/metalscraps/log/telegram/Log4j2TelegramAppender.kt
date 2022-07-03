@@ -66,6 +66,10 @@ open class Log4j2TelegramAppender(
                 execute(chatId, buffer.toString())
                 buffer.delete(0, buffer.length)
             }
+            if (buffer.isNotBlank()) {
+                execute(chatId, buffer.toString())
+            }
+            buffer.delete(0, buffer.length)
             return
         }
 
