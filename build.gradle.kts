@@ -23,7 +23,7 @@ dependencies {
     implementation("org.telegram:telegrambots:6.4.0") {
         exclude("org.json:json") // Cxdb5a1032-eda2
     }
-    implementation("org.json:json:20200518")
+    implementation("org.json:json:20220924")
 
     implementation("org.apache.logging.log4j:log4j-core:$log4j2Version")
 
