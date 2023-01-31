@@ -27,7 +27,7 @@ dependencies {
 
     implementation("org.apache.logging.log4j:log4j-core:$log4j2Version")
 
-    implementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    implementation("org.junit.jupiter:junit-jupiter:5.9.2")
     testImplementation(kotlin("test"))
     testImplementation(kotlin("reflect"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
