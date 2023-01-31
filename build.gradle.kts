@@ -17,7 +17,7 @@ repositories {
     mavenCentral()
 }
 
-val log4j2Version = "2.17.2"
+val log4j2Version = "2.19.0"
 
 dependencies {
     implementation("org.telegram:telegrambots:6.1.0") {
