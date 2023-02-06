@@ -20,7 +20,7 @@ repositories {
 val log4j2Version = "2.19.0"
 
 dependencies {
-    implementation("org.telegram:telegrambots:6.4.0") {
+    implementation("org.telegram:telegrambots:6.5.0") {
         exclude("org.json:json") // Cxdb5a1032-eda2
     }
     implementation("org.json:json:20220924")
